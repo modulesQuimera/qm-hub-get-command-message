@@ -1,8 +1,11 @@
 <script type="text/javascript">
   RED.nodes.registerType('get_command_message',{
-      category: 'Module Processing',
+      category: 'Processing Module',
       color: '#a6bbcf',
       defaults: {
+        name:{
+                value: ""
+            },
           command_ref: {value: '$', required: true},
           compare_select: {value:"equalTo", required:true},
           equalTo: {value: ''},
@@ -12,9 +15,9 @@
       inputs:1,
       outputs:1,
       // icon: "font-awesome/fa-pause",
-      icon: "parser-xml.png",
+      icon: "./icons/Get_CMD_MSG.svg",
       label: function() {
-          return "Get Command Message";
+          return this.name || "Get Command Message";
       },
       oneditprepare: function() { 
         var node = this;
@@ -50,37 +53,117 @@
   });
 </script>
 
+
+
+
+<style>
+
+  select#node-input-mapeamento {
+      width: 100%;
+      display: none;
+  }
+
+  a#node-input-lookup-mapeamento {
+  position: absolute;
+  right: -30px !important;
+  top: 0px;
+  }
+
+  label{
+      width: 50% !important;
+      margin-bottom: 2px !important;
+  }
+
+  .columm{
+      display: flex !important;
+      flex-direction: column !important;
+  }
+
+  hr {
+  width: 40% !important;
+  float: left !important;
+  }
+
+  .hr-div-get-command{
+      display: flex !important;
+      justify-content: space-between !important;
+      margin-top: 150px !important;
+  }
+
+  .optional{
+      height: max-content !important;
+      margin-top: 10px !important;
+  }
+
+  .descript{
+      text-align: center;
+  }
+
+</style>
+
 <script type="text/html" data-template-name="get_command_message">
-  <div class="form-row">
+
+
+  <div class="form-row columm">
+    <strong class="descript">
+      Get Command Message Component extract desired values ​​from a string, <br> assigning the compatible type and make a comparison with the first extracted value.
+ </strong>
+ </div>
+
+  <div class="form-row columm">
       <label for="node-input-command_ref" style="width: max-content; !important"><i class="icon-tag"></i>Command_ref:</label>
-      <input type="text" id="node-input-command_ref" style="margin-left: 8px;  !important ">
+      <input type="text" id="node-input-command_ref">
   </div>
-  <div class="form-row">
+  <div class="form-row columm">
     <label style="width: auto" for="node-input-compare_select"><i class="icon-tag"></i>Comparison Type:</label>
-    <select id="node-input-compare_select" style="margin-left: 8px !important;" >
+    <select id="node-input-compare_select"  >
         <option value="equalTo">Equal to</option>
         <option value="interval">Interval</option>
         <option value="maxValue">Maximum value (<)</option>
         <option value="minValue">Minimum value (>)</option>  
     </select>
   </div>
-  <div class="form-row" style="display: flex;">
-    <div class="node-input-equal-to">
-      <label for="node-input-equalTo" style="width: max-content; !important"><i class="icon-tag"></i>Equal To: </label>
-      <input type="text" id="node-input-equalTo" style="margin: 0 8px !important; width:60px !important ">
+
+  <div class="form-row columm" style="display: flex;">
+    <div class="  node-input-equal-to">
+      <div class="columm">
+        <label for="node-input-equalTo" style="width: max-content; !important"><i class="icon-tag"></i>Equal To: </label>
+        <input type="text" id="node-input-equalTo" style="width:70px !important ">
+      </div>
     </div>
-    <div class="node-input-min-value" style="display: none;">
-      <label for="node-input-minValue" style="width: max-content !important;"><i class="icon-tag"></i>Minimum Value: </label>
-      <input type="text" id="node-input-minValue" style="margin: 0 8px !important; width:60px !important ">
+
+    <div class=box>
+      <div class="  node-input-min-value" style="display: none; width: min-content; float: left; margin-right: 40px;">
+        <div class="columm">
+          <label for="node-input-minValue" style="width: max-content !important;"><i class="icon-tag"></i>Minimum Value: </label>
+          <input type="text" id="node-input-minValue" style="width:70px !important ">
+        </div>
+      </div>
+
+      <div class="  node-input-max-value" style="display: none;">
+        <div class="columm">
+          <label for="node-input-maxValue" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+          <input type="text" id="node-input-maxValue" style="width:70px !important ">
+        </div>
+      </div>
     </div>
-    <div class="node-input-max-value" style="display: none;">
-      <label for="node-input-maxValue" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
-      <input type="text" id="node-input-maxValue" style="margin: 0 8px !important; width:60px !important ">
-    </div>
+  </div>
+
+
+  <div class="hr-div-get-command">
+    <hr>
+    <span class="optional">Optional</span>
+    <hr>
+  </div>
+
+  <div class="form-row columm">
+      <label style="width: 50% !important;" for="node-input-name" ><i class="fa fa-tag"></i> Component Nickname</label>
+      <input type="text" id="node-input-name" placeholder="Name">
+  </div>
     
   </div>
 </script>
 
 <script type="text/html" data-help-name="get_command_message">
-  <p>GET COMMAND MESSAGE</p>
+  <p>Get Command Message Component extract desired values ​​from a string, assigning the compatible type and make a comparison with the first extracted value.</p>
 </script>

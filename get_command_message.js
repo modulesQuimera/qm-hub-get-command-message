@@ -43,7 +43,7 @@ module.exports = function(RED) {
             slot: 1,
             compare: _compare,
             method: "get_command_message",
-            message_in: "message_received",
+            message_in: "",
             command_ref: node.command_ref,
             get_output: {message_in: "message_received"}
           }
@@ -57,7 +57,8 @@ module.exports = function(RED) {
           }
           globalContext.set("exportFile", file);
           node.status({fill:"green", shape:"dot", text:"done"}); // seta o status pra waiting
-          msg.payload = command
+          // msg.payload = command
+          console.log(command)
           
           node.send(msg);
       });
