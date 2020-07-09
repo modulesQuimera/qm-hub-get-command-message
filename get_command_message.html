@@ -9,13 +9,12 @@
           command_ref: {value: '$', required: true},
           compare_select: {value:"equalTo", required:true},
           equalTo: {value: ''},
-          maxValue: {value: null, validate:RED.validators.number()},
-          minValue: {value: null, validate:RED.validators.number()}
+          maxValue: {value: null},
+          minValue: {value: null}
       },
       inputs:1,
       outputs:1,
-      // icon: "font-awesome/fa-pause",
-      icon: "./icons/Get_CMD_MSG.svg",
+      icon: "Get_CMD_MSG.svg",
       label: function() {
           return this.name || "Get Command Message";
       },
@@ -46,15 +45,11 @@
                 $(".node-input-max-value").hide();
                 $(".node-input-min-value").show();
               }
-              // node._resize();
         });
 
       }
   });
 </script>
-
-
-
 
 <style>
 
@@ -102,14 +97,11 @@
 </style>
 
 <script type="text/html" data-template-name="get_command_message">
-
-
   <div class="form-row columm">
     <strong class="descript">
       Get Command Message Component extract desired values ​​from a string, <br> assigning the compatible type and make a comparison with the first extracted value.
  </strong>
  </div>
-
   <div class="form-row columm">
       <label for="node-input-command_ref" style="width: max-content; !important"><i class="icon-tag"></i>Command_ref:</label>
       <input type="text" id="node-input-command_ref">
@@ -123,7 +115,6 @@
         <option value="minValue">Minimum value (>)</option>  
     </select>
   </div>
-
   <div class="form-row columm" style="display: flex;">
     <div class="  node-input-equal-to">
       <div class="columm">
@@ -131,7 +122,6 @@
         <input type="text" id="node-input-equalTo" style="width:70px !important ">
       </div>
     </div>
-
     <div class=box>
       <div class="  node-input-min-value" style="display: none; width: min-content; float: left; margin-right: 40px;">
         <div class="columm">
@@ -139,7 +129,6 @@
           <input type="text" id="node-input-minValue" style="width:70px !important ">
         </div>
       </div>
-
       <div class="  node-input-max-value" style="display: none;">
         <div class="columm">
           <label for="node-input-maxValue" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
@@ -148,19 +137,15 @@
       </div>
     </div>
   </div>
-
-
   <div class="hr-div-get-command">
     <hr>
     <span class="optional">Optional</span>
     <hr>
   </div>
-
   <div class="form-row columm">
       <label style="width: 50% !important;" for="node-input-name" ><i class="fa fa-tag"></i> Component Nickname</label>
       <input type="text" id="node-input-name" placeholder="Name">
   </div>
-    
   </div>
 </script>
 
