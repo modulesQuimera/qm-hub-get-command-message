@@ -1,6 +1,6 @@
 {
   "name": "qm-get-command-message",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Node Component - Node-RED -> Get Command Message",
   "main": "get_command_message.js",
   "scripts": {

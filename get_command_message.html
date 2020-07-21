@@ -1,154 +1,656 @@
 <script type="text/javascript">
-  RED.nodes.registerType('get_command_message',{
-      category: 'Processing Module',
-      color: '#a6bbcf',
-      defaults: {
-        name:{
-                value: ""
-            },
-          command_ref: {value: '$', required: true},
-          compare_select: {value:"equalTo", required:true},
-          equalTo: {value: ''},
-          maxValue: {value: null},
-          minValue: {value: null}
-      },
-      inputs:1,
-      outputs:1,
-      icon: "Get_CMD_MSG.svg",
-      label: function() {
-          return this.name || "Get Command Message";
-      },
-      oneditprepare: function() { 
-        var node = this;
-        var scope = node.scope || [];
+	RED.nodes.registerType('get_command_message',{
+		category: 'Processing Module',
+		color: '#ff0028',
+		defaults: {
+			name:{ value: "" },
+			command_ref: {value: '$', required: true},
+			compare_select: {value:"equalTo", required:true},
+			equalTo: {value: ''},
+			maxValue: {value: null},
+			minValue: {value: null},
 
-        $("#node-input-compare_select").on("change", function(e) {
-              var compare = $(this).val();
-              if (compare === "equalTo") {
-                  $(".node-input-equal-to").show();
-                  $(".node-input-max-value").hide();
-                  $(".node-input-min-value").hide();
-              }
-              if (compare === "interval") {
-                $(".node-input-equal-to").hide();
-                $(".node-input-max-value").show();
-                $(".node-input-min-value").show();
-              }
+			qtdCompare:{value:0},
+            controle:{value:0},
+			compare_select1: {value:"equalTo", required:true}, equalTo1: {value: ''}, maxValue1: {value: null}, minValue1: {value: null},
+			compare_select2: {value:"equalTo", required:true}, equalTo2: {value: ''}, maxValue2: {value: null}, minValue2: {value: null},
+			compare_select3: {value:"equalTo", required:true}, equalTo3: {value: ''}, maxValue3: {value: null}, minValue3: {value: null},
+			compare_select4: {value:"equalTo", required:true}, equalTo4: {value: ''}, maxValue4: {value: null}, minValue4: {value: null},
+			compare_select5: {value:"equalTo", required:true}, equalTo5: {value: ''}, maxValue5: {value: null}, minValue5: {value: null},
+			compare_select6: {value:"equalTo", required:true}, equalTo6: {value: ''}, maxValue6: {value: null}, minValue6: {value: null},
+			compare_select7: {value:"equalTo", required:true}, equalTo7: {value: ''}, maxValue7: {value: null}, minValue7: {value: null},
+			compare_select8: {value:"equalTo", required:true}, equalTo8: {value: ''}, maxValue8: {value: null}, minValue8: {value: null},
+			compare_select9: {value:"equalTo", required:true}, equalTo9: {value: ''}, maxValue9: {value: null}, minValue9: {value: null},
+			compare_select10: {value:"equalTo", required:true}, equalTo10: {value: ''}, maxValue10: {value: null}, minValue10: {value: null},
+		},
+		inputs:1,
+		outputs:1,
+		icon: "PCS_Modular.svg",
+		label: function() {
+			return this.name? "Get Command Message - " + this.name: "Get Command Message";
+		},
+		oneditprepare: function() { 
+			var self = this
+			self.controle = self.qtdCompare;
 
-              if (compare === "maxValue") {
-                $(".node-input-equal-to").hide();
-                $(".node-input-max-value").show();
-                $(".node-input-min-value").hide();
-              }
-              if (compare === "minValue") {
-                $(".node-input-equal-to").hide();
-                $(".node-input-max-value").hide();
-                $(".node-input-min-value").show();
-              }
-        });
+            for(var i=1; i<=self.controle; i++){
+                $(".compare"+i).show();
+            }
+            if(!self.controle || self.controle < 0){
+                self.controle = 0;
+            }
+            $("#addCompare").click(function(){
+                self.controle = self.controle+1 <= 10 ? self.controle + 1 : 10;
 
-      }
-  });
+                $(".compare"+self.controle).show();
+                console.log(self.controle);
+            });
+            $("#remCompare").click(function(){
+                $(".compare"+self.controle).hide();
+                self.controle = self.controle-1 >= 0 ? self.controle - 1 : 0;
+                console.log(self.controle);
+            });
+
+			$("#node-input-compare_select").on("change", function(e) {
+				var compare = $(this).val();
+				if (compare === "equalTo") { $(".node-input-equal-to").show(); $(".node-input-max-value").hide(); $(".node-input-min-value").hide(); }
+				if (compare === "interval") { $(".node-input-equal-to").hide(); $(".node-input-max-value").show(); $(".node-input-min-value").show(); }
+				if (compare === "maxValue") { $(".node-input-equal-to").hide(); $(".node-input-max-value").show(); $(".node-input-min-value").hide(); }
+				if (compare === "minValue") { $(".node-input-equal-to").hide(); $(".node-input-max-value").hide(); $(".node-input-min-value").show(); }
+			});
+
+			$("#node-input-compare_select1").on("change", function(e) {
+				var compare = $(this).val();
+				console.log("mudou1")
+				if (compare === "equalTo") { $(".node-input-equal-to1").show(); $(".node-input-max-value1").hide(); $(".node-input-min-value1").hide(); }
+				if (compare === "interval") { $(".node-input-equal-to1").hide(); $(".node-input-max-value1").show(); $(".node-input-min-value1").show(); }
+				if (compare === "maxValue") { $(".node-input-equal-to1").hide(); $(".node-input-max-value1").show(); $(".node-input-min-value1").hide(); }
+				if (compare === "minValue") { $(".node-input-equal-to1").hide(); $(".node-input-max-value1").hide(); $(".node-input-min-value1").show(); }
+			});
+			$("#node-input-compare_select2").on("change", function(e) {
+				var compare = $(this).val();
+				if (compare === "equalTo") { $(".node-input-equal-to2").show(); $(".node-input-max-value2").hide(); $(".node-input-min-value2").hide(); }
+				if (compare === "interval") { $(".node-input-equal-to2").hide(); $(".node-input-max-value2").show(); $(".node-input-min-value2").show(); }
+				if (compare === "maxValue") { $(".node-input-equal-to2").hide(); $(".node-input-max-value2").show(); $(".node-input-min-value2").hide(); }
+				if (compare === "minValue") { $(".node-input-equal-to2").hide(); $(".node-input-max-value2").hide(); $(".node-input-min-value2").show(); }
+			});
+			$("#node-input-compare_select3").on("change", function(e) {
+				var compare = $(this).val();
+				if (compare === "equalTo") { $(".node-input-equal-to3").show(); $(".node-input-max-value3").hide(); $(".node-input-min-value3").hide(); }
+				if (compare === "interval") { $(".node-input-equal-to3").hide(); $(".node-input-max-value3").show(); $(".node-input-min-value3").show(); }
+				if (compare === "maxValue") { $(".node-input-equal-to3").hide(); $(".node-input-max-value3").show(); $(".node-input-min-value3").hide(); }
+				if (compare === "minValue") { $(".node-input-equal-to3").hide(); $(".node-input-max-value3").hide(); $(".node-input-min-value3").show(); }
+			});
+			$("#node-input-compare_select4").on("change", function(e) {
+				var compare = $(this).val();
+				if (compare === "equalTo") { $(".node-input-equal-to4").show(); $(".node-input-max-value4").hide(); $(".node-input-min-value4").hide(); }
+				if (compare === "interval") { $(".node-input-equal-to4").hide(); $(".node-input-max-value4").show(); $(".node-input-min-value4").show(); }
+				if (compare === "maxValue") { $(".node-input-equal-to4").hide(); $(".node-input-max-value4").show(); $(".node-input-min-value4").hide(); }
+				if (compare === "minValue") { $(".node-input-equal-to4").hide(); $(".node-input-max-value4").hide(); $(".node-input-min-value4").show(); }
+			});
+			$("#node-input-compare_select5").on("change", function(e) {
+				var compare = $(this).val();
+				if (compare === "equalTo") { $(".node-input-equal-to5").show(); $(".node-input-max-value5").hide(); $(".node-input-min-value5").hide(); }
+				if (compare === "interval") { $(".node-input-equal-to5").hide(); $(".node-input-max-value5").show(); $(".node-input-min-value5").show(); }
+				if (compare === "maxValue") { $(".node-input-equal-to5").hide(); $(".node-input-max-value5").show(); $(".node-input-min-value5").hide(); }
+				if (compare === "minValue") { $(".node-input-equal-to5").hide(); $(".node-input-max-value5").hide(); $(".node-input-min-value5").show(); }
+			});
+			$("#node-input-compare_select6").on("change", function(e) {
+				var compare = $(this).val();
+				if (compare === "equalTo") { $(".node-input-equal-to6").show(); $(".node-input-max-value6").hide(); $(".node-input-min-value6").hide(); }
+				if (compare === "interval") { $(".node-input-equal-to6").hide(); $(".node-input-max-value6").show(); $(".node-input-min-value6").show(); }
+				if (compare === "maxValue") { $(".node-input-equal-to6").hide(); $(".node-input-max-value6").show(); $(".node-input-min-value6").hide(); }
+				if (compare === "minValue") { $(".node-input-equal-to6").hide(); $(".node-input-max-value6").hide(); $(".node-input-min-value6").show(); }
+			});
+			$("#node-input-compare_select7").on("change", function(e) {
+				var compare = $(this).val();
+				if (compare === "equalTo") { $(".node-input-equal-to7").show(); $(".node-input-max-value7").hide(); $(".node-input-min-value7").hide(); }
+				if (compare === "interval") { $(".node-input-equal-to7").hide(); $(".node-input-max-value7").show(); $(".node-input-min-value7").show(); }
+				if (compare === "maxValue") { $(".node-input-equal-to7").hide(); $(".node-input-max-value7").show(); $(".node-input-min-value7").hide(); }
+				if (compare === "minValue") { $(".node-input-equal-to7").hide(); $(".node-input-max-value7").hide(); $(".node-input-min-value7").show(); }
+			});
+			$("#node-input-compare_select8").on("change", function(e) {
+				var compare = $(this).val();
+				if (compare === "equalTo") { $(".node-input-equal-to8").show(); $(".node-input-max-value8").hide(); $(".node-input-min-value8").hide(); }
+				if (compare === "interval") { $(".node-input-equal-to8").hide(); $(".node-input-max-value8").show(); $(".node-input-min-value8").show(); }
+				if (compare === "maxValue") { $(".node-input-equal-to8").hide(); $(".node-input-max-value8").show(); $(".node-input-min-value8").hide(); }
+				if (compare === "minValue") { $(".node-input-equal-to8").hide(); $(".node-input-max-value8").hide(); $(".node-input-min-value8").show(); }
+			});
+			$("#node-input-compare_select9").on("change", function(e) {
+				var compare = $(this).val();
+				if (compare === "equalTo") { $(".node-input-equal-to9").show(); $(".node-input-max-value9").hide(); $(".node-input-min-value9").hide(); }
+				if (compare === "interval") { $(".node-input-equal-to9").hide(); $(".node-input-max-value9").show(); $(".node-input-min-value9").show(); }
+				if (compare === "maxValue") { $(".node-input-equal-to9").hide(); $(".node-input-max-value9").show(); $(".node-input-min-value9").hide(); }
+				if (compare === "minValue") { $(".node-input-equal-to9").hide(); $(".node-input-max-value9").hide(); $(".node-input-min-value9").show(); }
+			});
+			$("#node-input-compare_select10").on("change", function(e) {
+				var compare = $(this).val();
+				if (compare === "equalTo") { $(".node-input-equal-to10").show(); $(".node-input-max-value10").hide(); $(".node-input-min-value10").hide(); }
+				if (compare === "interval") { $(".node-input-equal-to10").hide(); $(".node-input-max-value10").show(); $(".node-input-min-value10").show(); }
+				if (compare === "maxValue") { $(".node-input-equal-to10").hide(); $(".node-input-max-value10").show(); $(".node-input-min-value10").hide(); }
+				if (compare === "minValue") { $(".node-input-equal-to10").hide(); $(".node-input-max-value10").hide(); $(".node-input-min-value10").show(); }
+			});
+			
+		},
+        oneditsave: function() {
+            this.qtdCompare = this.controle;
+		}
+	});
 </script>
 
 <style>
+	label{
+		width: 50% !important;
+		margin-bottom: 2px !important;
+	}
 
-  select#node-input-mapeamento {
-      width: 100%;
-      display: none;
-  }
+	.columm{
+		display: flex !important;
+		flex-direction: column !important;
+	}
 
-  a#node-input-lookup-mapeamento {
-  position: absolute;
-  right: -30px !important;
-  top: 0px;
-  }
+	hr {
+	width: 40% !important;
+	float: left !important;
+	}
 
-  label{
-      width: 50% !important;
-      margin-bottom: 2px !important;
-  }
+	.hr-div-get-command{
+		display: flex !important;
+		justify-content: space-between !important;
+		margin-top: 150px !important;
+	}
 
-  .columm{
-      display: flex !important;
-      flex-direction: column !important;
-  }
+	.optional{
+		height: max-content !important;
+		margin-top: 10px !important;
+	}
 
-  hr {
-  width: 40% !important;
-  float: left !important;
-  }
+	.descript{
+		text-align: center;
+	}
 
-  .hr-div-get-command{
-      display: flex !important;
-      justify-content: space-between !important;
-      margin-top: 150px !important;
-  }
+	.hr-div-command{
+        display: flex !important;
+        justify-content: space-between !important;
+        /* margin-top: 250px !important; */
+    }
 
-  .optional{
-      height: max-content !important;
-      margin-top: 10px !important;
-  }
 
-  .descript{
-      text-align: center;
-  }
+
+    .hr-full{
+        width: 100% !important;
+    }
+
+
+    .btn-uni{
+        border: none  !important;
+        height: 35px  !important;
+        color: #eee !important;
+        /* float: right !important; */
+    }
+
+    .btn-uni:focus{
+        outline: none !important;
+    }
+
+    .btn-add{
+        background: #1fad16;
+    }
+
+    .btn-remove{
+        background: #AD1625;
+    }
 
 </style>
 
 <script type="text/html" data-template-name="get_command_message">
-  <div class="form-row columm">
-    <strong class="descript">
-      Get Command Message Component extract desired values ​​from a string, <br> assigning the compatible type and make a comparison with the first extracted value.
- </strong>
- </div>
-  <div class="form-row columm">
-      <label for="node-input-command_ref" style="width: max-content; !important"><i class="icon-tag"></i>Command_ref:</label>
-      <input type="text" id="node-input-command_ref">
-  </div>
-  <div class="form-row columm">
-    <label style="width: auto" for="node-input-compare_select"><i class="icon-tag"></i>Comparison Type:</label>
-    <select id="node-input-compare_select"  >
-        <option value="equalTo">Equal to</option>
-        <option value="interval">Interval</option>
-        <option value="maxValue">Maximum value (<)</option>
-        <option value="minValue">Minimum value (>)</option>  
-    </select>
-  </div>
-  <div class="form-row columm" style="display: flex;">
-    <div class="  node-input-equal-to">
-      <div class="columm">
-        <label for="node-input-equalTo" style="width: max-content; !important"><i class="icon-tag"></i>Equal To: </label>
-        <input type="text" id="node-input-equalTo" style="width:70px !important ">
-      </div>
+	
+	<div class="form-row columm">
+		<strong class="descript">
+			Receives a message from a “send receive” and extracts desired information according to a reference message, and passes the rest of the message on to compare support.
+	</strong>
+	</div>
+
+	<div class="form-row" style="display:flex; justify-content: space-between;">
+		<button class="btn-uni btn-add"  id="addCompare" type="button"><i class="fa fa-plus" style="margin-right: 5px; font-size: 15px;"></i>Compare</button>
+		<button class="btn-uni btn-remove"  id="remCompare" type="button"><i class="fa fa-trash" style="margin-right: 10px; font-size: 15px;"></i>Compare</button>
     </div>
-    <div class=box>
-      <div class="  node-input-min-value" style="display: none; width: min-content; float: left; margin-right: 40px;">
-        <div class="columm">
-          <label for="node-input-minValue" style="width: max-content !important;"><i class="icon-tag"></i>Minimum Value: </label>
-          <input type="text" id="node-input-minValue" style="width:70px !important ">
-        </div>
-      </div>
-      <div class="  node-input-max-value" style="display: none;">
-        <div class="columm">
-          <label for="node-input-maxValue" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
-          <input type="text" id="node-input-maxValue" style="width:70px !important ">
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="hr-div-get-command">
-    <hr>
-    <span class="optional">Optional</span>
-    <hr>
-  </div>
-  <div class="form-row columm">
-      <label style="width: 50% !important;" for="node-input-name" ><i class="fa fa-tag"></i> Component Nickname</label>
-      <input type="text" id="node-input-name" placeholder="Name">
-  </div>
-  </div>
+
+	<div class="form-row columm">
+		<label for="node-input-command_ref" style="width: max-content; !important"><i class="fa fa-code"></i> Command_ref:</label>
+		<input type="text" id="node-input-command_ref">
+	</div>
+	<div class="form-row columm">
+		<label style="width: auto" for="node-input-compare_select"><i class="fa fa-list"></i> Comparison Type:</label>
+		<select id="node-input-compare_select"  >
+			<option value="equalTo">Equal to</option>
+			<option value="interval">Interval</option>
+			<option value="maxValue">Maximum value (<)</option>
+			<option value="minValue">Minimum value (>)</option>  
+		</select>
+	</div>
+	<div class="form-row columm" style="display: flex;">
+		<div class="  node-input-equal-to">
+		<div class="columm">
+			<label for="node-input-equalTo" style="width: max-content; !important"><i class="fa fa-exchange"></i> Equal To: </label>
+			<input type="text" id="node-input-equalTo" style="width:70px !important ">
+		</div>
+		</div>
+		<div class=box>
+			<div class="  node-input-min-value" style="display: none; width: min-content; float: left; margin-right: 40px;">
+				<div class="columm">
+				<label for="node-input-minValue" style="width: max-content !important;"><i class="icon-tag"></i>Minimum Value: </label>
+				<input type="text" id="node-input-minValue" style="width:70px !important ">
+				</div>
+			</div>
+			<div class="  node-input-max-value" style="display: none;">
+				<div class="columm">
+				<label for="node-input-maxValue" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+				<input type="text" id="node-input-maxValue" style="width:70px !important ">
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="form-row compare1"style="display:none;">
+		<div class="form-row columm">
+		
+			<div style="display: flex; flex-direction: row; align-items: center;">
+				<label style="width: 35% !important;" for="node-input-compare_select1">Comparison Type - 1:</label>
+				<hr class="hr-full">
+			</div>
+			
+			<select id="node-input-compare_select1"  >
+				<option value="equalTo">Equal to</option>
+				<option value="interval">Interval</option>
+				<option value="maxValue">Maximum value (<)</option>
+				<option value="minValue">Minimum value (>)</option>  
+			</select>
+		</div>
+		<div class="form-row columm" style="display: flex;">
+			<div class="node-input-equal-to1">
+				<div class="columm">
+					<label for="node-input-equalTo1" style="widthfa fa-exchangecontent; !important"><i class="icon-tag"></i> Equal To: </label>
+					<input type="text" id="node-input-equalTo1" style=" width:70px !important ">
+				</div>
+			</div>
+			<div class=box>
+				<div class="node-input-min-value1" style="display: none; width: min-content; float: left; margin-right: 40px;"">
+					<div class="columm">
+						<label for="node-input-minValue1" style="widthfa fa-minus-circlecontent !important;"><i class="fa fa-minus-circle"></i> Minimum Value: </label>
+						<input type="number" id="node-input-minValue1" style=" width:70px !important ">
+					</div>
+				</div>
+				<div class="node-input-max-value1" style="display: none;">
+					<div class="columm">
+						<label for="node-input-maxValue1" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+						<input type="number" id="node-input-maxValue1" style=" width:70px !important ">
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+	<div class="form-row compare2" style="display:none;">
+		<div class="form-row columm">
+			
+			<div style="display: flex; flex-direction: row; align-items: center;">
+				<label style="width: 35% !important;" for="node-input-compare_select2">Comparison Type - 2:</label>
+				<hr class="hr-full">
+			</div>
+			<select id="node-input-compare_select2"  >
+				<option value="equalTo">Equal to</option>
+				<option value="interval">Interval</option>
+				<option value="maxValue">Maximum value (<)</option>
+				<option value="minValue">Minimum value (>)</option>  
+			</select>
+		</div>
+		<div class="form-row columm" style="display: flex;">
+			<div class="node-input-equal-to2">
+				<div class="columm">
+					<label for="node-input-equalTo2" style="width: max-content; !important"><i class="fa fa-exchange"></i> Equal To: </label>
+					<input type="text" id="node-input-equalTo2" style=" width:70px !important ">
+				</div>
+			</div>
+			<div class=box>
+				<div class="node-input-min-value2" style="display: none; width: min-content; float: left; margin-right: 40px;"">
+					<div class="columm">
+						<label for="node-input-minValue2" style="width: max-content !important;"><i class="fa fa-minus-circle"></i> Minimum Value: </label>
+						<input type="number" id="node-input-minValue2" style=" width:70px !important ">
+					</div>
+				</div>
+				<div class="node-input-max-value2" style="display: none;">
+					<div class="columm">
+						<label for="node-input-maxValue2" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+						<input type="number" id="node-input-maxValue2" style=" width:70px !important ">
+					</div>
+				</div>
+			</div>
+		
+		</div>
+	</div>
+
+	<div class="form-row compare3"style="display:none;">
+		<div class="form-row columm">
+			
+			<div style="display: flex; flex-direction: row; align-items: center;">
+				<label style="width: 35% !important;" for="node-input-compare_select3">Comparison Type - 3:</label>
+				<hr class="hr-full">
+			</div>
+			<select id="node-input-compare_select3"  >
+				<option value="equalTo">Equal to</option>
+				<option value="interval">Interval</option>
+				<option value="maxValue">Maximum value (<)</option>
+				<option value="minValue">Minimum value (>)</option>  
+			</select>
+		</div>
+		<div class="form-row columm" style="display: flex;">
+			<div class="node-input-equal-to3">
+				<div class="columm">
+					<label for="node-input-equalTo3" style="width: max-content; !important"><i class="fa fa-exchange"></i> Equal To: </label>
+					<input type="text" id="node-input-equalTo3" style=" width:70px !important ">
+				</div>
+			</div>
+			<div class=box>
+				<div class="node-input-min-value3" style="display: none; width: min-content; float: left; margin-right: 40px;">
+					<div class="columm">
+						<label for="node-input-minValue3" style="width: max-content !important;"><i class="fa fa-minus-circle"></i> Minimum Value: </label>
+						<input type="number" id="node-input-minValue3" style=" width:70px !important ">
+					</div>
+				</div>
+				<div class="node-input-max-value3" style="display: none;">
+					<div class="columm">
+						<label for="node-input-maxValue3" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+						<input type="number" id="node-input-maxValue3" style=" width:70px !important ">
+					</div>
+				</div>
+			</div>
+		
+		</div>
+	</div>
+
+	<div class="form-row compare4"style="display:none;">
+		<div class="form-row columm">
+			
+			<div style="display: flex; flex-direction: row; align-items: center;">
+				<label style="width: 35% !important;" for="node-input-compare_select4">Comparison Type - 4:</label>
+				<hr class="hr-full">
+			</div>
+			<select id="node-input-compare_select4"  >
+				<option value="equalTo">Equal to</option>
+				<option value="interval">Interval</option>
+				<option value="maxValue">Maximum value (<)</option>
+				<option value="minValue">Minimum value (>)</option>  
+			</select>
+		</div>
+		<div class="form-row columm" style="display: flex;">
+			<div class="node-input-equal-to4">
+				<div class="columm">
+					<label for="node-input-equalTo4" style="width: max-content; !important"><i class="fa fa-exchange"></i> Equal To: </label>
+					<input type="text" id="node-input-equalTo4" style=" width:70px !important ">
+				</div>
+			</div>
+			<div class=box>
+				<div class="node-input-min-value4" style="display: none; width: min-content; float: left; margin-right: 40px;"">
+					<div class="columm">
+						<label for="node-input-minValue4" style="width: max-content !important;"><i class="fa fa-minus-circle"></i> Minimum Value: </label>
+						<input type="number" id="node-input-minValue4" style=" width:70px !important ">
+					</div>
+				</div>
+				<div class="node-input-max-value4" style="display: none;">
+					<div class="columm">
+						<label for="node-input-maxValue4" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+						<input type="number" id="node-input-maxValue4" style=" width:70px !important ">
+					</div>
+				</div>
+			</div>
+		
+		</div>
+	</div>
+
+	<div class="form-row compare5"style="display:none;">
+		<div class="form-row columm">
+			
+			<div style="display: flex; flex-direction: row; align-items: center;">
+				<label style="width: 35% !important;" for="node-input-compare_select5">Comparison Type - 5:</label>
+				<hr class="hr-full">
+			</div>
+			<select id="node-input-compare_select5"  >
+				<option value="equalTo">Equal to</option>
+				<option value="interval">Interval</option>
+				<option value="maxValue">Maximum value (<)</option>
+				<option value="minValue">Minimum value (>)</option>  
+			</select>
+		</div>
+		<div class="form-row columm" style="display: flex;">
+			<div class="node-input-equal-to5">
+				<div class="columm">
+					<label for="node-input-equalTo5" style="width: max-content; !important"><i class="fa fa-exchange"></i> Equal To: </label>
+					<input type="text" id="node-input-equalTo5" style=" width:70px !important ">
+				</div>
+			</div>
+			<div class=box>
+				<div class="node-input-min-value5" style="display: none; width: min-content; float: left; margin-right: 40px;"">
+					<div class="columm">
+						<label for="node-input-minValue5" style="width: max-content !important;"><i class="fa fa-minus-circle"></i> Minimum Value: </label>
+						<input type="number" id="node-input-minValue5" style=" width:70px !important ">
+					</div>
+				</div>
+				<div class="node-input-max-value5" style="display: none;">
+					<div class="columm">
+						<label for="node-input-maxValue5" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+						<input type="number" id="node-input-maxValue5" style=" width:70px !important ">
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	<div class="form-row compare6"style="display:none;">
+		<div class="form-row columm">
+			
+			<div style="display: flex; flex-direction: row; align-items: center;">
+				<label style="width: 35% !important;" for="node-input-compare_select6">Comparison Type - 6:</label>
+				<hr class="hr-full">
+			</div>
+			<select id="node-input-compare_select6"  >
+				<option value="equalTo">Equal to</option>
+				<option value="interval">Interval</option>
+				<option value="maxValue">Maximum value (<)</option>
+				<option value="minValue">Minimum value (>)</option>  
+			</select>
+		</div>
+		<div class="form-row columm" style="display: flex;">
+			<div class="node-input-equal-to6">
+				<div class="columm">
+					<label for="node-input-equalTo6" style="width: max-content; !important"><i class="fa fa-exchange"></i> Equal To: </label>
+					<input type="text" id="node-input-equalTo6" style=" width:70px !important ">
+				</div>
+			</div>
+			<div class=box>
+				<div class="node-input-min-value6" style="display: none; width: min-content; float: left; margin-right: 40px;"">
+					<div class="columm">
+						<label for="node-input-minValue6" style="width: max-content !important;"><i class="fa fa-minus-circle"></i> Minimum Value: </label>
+						<input type="number" id="node-input-minValue6" style=" width:70px !important ">
+					</div>
+				</div>
+				<div class="node-input-max-value6" style="display: none;">
+					<div class="columm">
+						<label for="node-input-maxValue6" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+						<input type="number" id="node-input-maxValue6" style=" width:70px !important ">
+					</div>
+				</div>
+			</div>
+		
+		</div>
+	</div>
+	<div class="form-row compare7"style="display:none;">
+		<div class="form-row columm">
+		
+			<div style="display: flex; flex-direction: row; align-items: center;">
+				<label style="width: 35% !important;" for="node-input-compare_select7">Comparison Type - 7:</label>
+				<hr class="hr-full">
+			</div>
+			<select id="node-input-compare_select7"  >
+				<option value="equalTo">Equal to</option>
+				<option value="interval">Interval</option>
+				<option value="maxValue">Maximum value (<)</option>
+				<option value="minValue">Minimum value (>)</option>  
+			</select>
+		</div>
+		<div class="form-row columm" style="display: flex;">
+			<div class="node-input-equal-to7">
+				<div class="columm">
+					<label for="node-input-equalTo7" style="width: max-content; !important"><i class="fa fa-exchange"></i> Equal To: </label>
+					<input type="text" id="node-input-equalTo7" style=" width:70px !important ">
+				</div>
+			</div>
+			<div class=box>
+				<div class="node-input-min-value7" style="display: none; width: min-content; float: left; margin-right: 40px;"">
+					<div class="columm">
+						<label for="node-input-minValue7" style="width: max-content !important;"><i class="fa fa-minus-circle"></i> Minimum Value: </label>
+						<input type="number" id="node-input-minValue7" style=" width:70px !important ">
+					</div>
+				</div>
+				<div class="node-input-max-value7" style="display: none;">
+					<div class="columm">
+						<label for="node-input-maxValue7" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+						<input type="number" id="node-input-maxValue7" style=" width:70px !important ">
+					</div>
+				</div>
+			</div>
+		
+		</div>
+	</div>
+	<div class="form-row compare8"style="display:none;">
+		<div class="form-row columm">
+			
+			<div style="display: flex; flex-direction: row; align-items: center;">
+				<label style="width: 35% !important;" for="node-input-compare_select8">Comparison Type - 8:</label>
+				<hr class="hr-full">
+			</div>
+			<select id="node-input-compare_select8"  >
+				<option value="equalTo">Equal to</option>
+				<option value="interval">Interval</option>
+				<option value="maxValue">Maximum value (<)</option>
+				<option value="minValue">Minimum value (>)</option>  
+			</select>
+		</div>
+		<div class="form-row columm" style="display: flex;">
+			<div class="node-input-equal-to8">
+				<div class="columm">
+					<label for="node-input-equalTo8" style="width: max-content; !important"><i class="fa fa-exchange"></i> Equal To: </label>
+					<input type="text" id="node-input-equalTo8" style=" width:70px !important ">
+				</div>
+			</div>
+			<div class=box>
+				<div class="node-input-min-value8" style="display: none; width: min-content; float: left; margin-right: 40px;"">
+					<div class="columm">
+						<label for="node-input-minValue8" style="width: max-content !important;"><i class="fa fa-minus-circle"></i> Minimum Value: </label>
+						<input type="number" id="node-input-minValue8" style=" width:70px !important ">
+					</div>
+				</div>
+				<div class="node-input-max-value8" style="display: none;">
+					<div class="columm">
+						<label for="node-input-maxValue8" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+						<input type="number" id="node-input-maxValue8" style=" width:70px !important ">
+					</div>
+				</div>
+			</div>
+		
+		</div>
+	</div>
+	<div class="form-row compare9"style="display:none;">
+		<div class="form-row columm">
+			
+			<div style="display: flex; flex-direction: row; align-items: center;">
+				<label style="width: 35% !important;" for="node-input-compare_select9">Comparison Type - 9:</label>
+				<hr class="hr-full">
+			</div>
+			<select id="node-input-compare_select9"  >
+				<option value="equalTo">Equal to</option>
+				<option value="interval">Interval</option>
+				<option value="maxValue">Maximum value (<)</option>
+				<option value="minValue">Minimum value (>)</option>  
+			</select>
+		</div>
+		<div class="form-row columm" style="display: flex;">
+			<div class="node-input-equal-to9">
+				<div class="columm">
+					<label for="node-input-equalTo9" style="width: max-content; !important"><i class="fa fa-exchange"></i> Equal To: </label>
+					<input type="text" id="node-input-equalTo9" style=" width:70px !important ">
+				</div>
+			</div>
+			<div class=box>
+				<div class="node-input-min-value9" style="display: none; width: min-content; float: left; margin-right: 40px;"">
+					<div class="columm">
+						<label for="node-input-minValue9" style="width: max-content !important;"><i class="fa fa-minus-circle"></i> Minimum Value: </label>
+						<input type="number" id="node-input-minValue9" style=" width:70px !important ">
+					</div>
+				</div>
+				<div class="node-input-max-value9" style="display: none;">
+					<div class="columm">
+						<label for="node-input-maxValue9" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+						<input type="number" id="node-input-maxValue9" style=" width:70px !important ">
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	<div class="form-row compare10"style="display:none;">
+		<div class="form-row columm">
+			
+			<div style="display: flex; flex-direction: row; align-items: center;">
+				<label style="width: 35% !important;" for="node-input-compare_select10">Comparison Type - 10:</label>
+				<hr class="hr-full">
+			</div>
+			<select id="node-input-compare_select10"  >
+				<option value="equalTo">Equal to</option>
+				<option value="interval">Interval</option>
+				<option value="maxValue">Maximum value (<)</option>
+				<option value="minValue">Minimum value (>)</option>  
+			</select>
+		</div>
+		<div class="form-row columm" style="display: flex;">
+			<div class="node-input-equal-to10">
+				<div class="columm">
+					<label for="node-input-equalTo10" style="width: max-content; !important"><i class="fa fa-exchange"></i> Equal To: </label>
+					<input type="text" id="node-input-equalTo10" style=" width:70px !important ">
+				</div>
+			</div>
+			<div class=box>
+				<div class="node-input-min-value10" style="display: none; width: min-content; float: left; margin-right: 40px;"">
+					<div class="columm">
+						<label for="node-input-minValue10" style="width: max-content !important;"><i class="fa fa-minus-circle"></i> Minimum Value: </label>
+						<input type="number" id="node-input-minValue10" style=" width:70px !important ">
+					</div>
+				</div>
+				<div class="node-input-max-value10" style="display: none;">
+					<div class="columm">
+						<label for="node-input-maxValue10" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+						<input type="number" id="node-input-maxValue10" style=" width:70px !important ">
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+
+	<div class="hr-div-get-command">
+		<hr>
+		<span class="optional">Optional</span>
+		<hr>
+	</div>
+	<div class="form-row columm">
+		<label style="width: 50% !important;" for="node-input-name" ><i class="fa fa-tag"></i> Component Nickname</label>
+		<input type="text" id="node-input-name" placeholder="Name">
+	</div>
+	</div>
 </script>
 
 <script type="text/html" data-help-name="get_command_message">
-  <p>Get Command Message Component extract desired values ​​from a string, assigning the compatible type and make a comparison with the first extracted value.</p>
+  	<p>Receives a message from a “send receive” and extracts desired information according to a reference message, and passes the rest of the message on to compare support.</p>
 </script>
