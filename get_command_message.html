@@ -25,7 +25,7 @@
 		},
 		inputs:1,
 		outputs:1,
-		icon: "PCS_Modular.svg",
+		icon: "CPU.svg",
 		label: function() {
 			return this.name? "Get Command Message - " + this.name: "Get Command Message";
 		},
@@ -140,7 +140,7 @@
 
 <style>
 	label{
-		width: 50% !important;
+		width: 100% !important;
 		margin-bottom: 2px !important;
 	}
 
@@ -157,7 +157,7 @@
 	.hr-div-get-command{
 		display: flex !important;
 		justify-content: space-between !important;
-		margin-top: 150px !important;
+
 	}
 
 	.optional{
@@ -177,16 +177,16 @@
 
 
 
-    .hr-full{
-        width: 100% !important;
+    .hr-full-command{
+        width: 65% !important;
     }
 
-
+/* 
     .btn-uni{
         border: none  !important;
         height: 35px  !important;
         color: #eee !important;
-        /* float: right !important; */
+        
     }
 
     .btn-uni:focus{
@@ -199,29 +199,110 @@
 
     .btn-remove{
         background: #AD1625;
+    } */
+
+	.columm-30{
+        display: flex !important;
+        flex-direction: column !important;
+        width: 30% !important;
+        float: left !important;
     }
+
+
+    .columm-70{
+        display: flex !important;
+        flex-direction: column !important;
+        width: 70% !important;
+        float: left !important;
+    }
+
+    hr {
+    width: 40% !important;
+    float: left !important;
+    }
+
+    .hr-div-get{
+        display: flex !important;
+        justify-content: space-between !important;
+        margin-top: 250px !important;
+    }
+
+    .optional{
+        height: max-content !important;
+        margin-top: 10px !important;
+    }
+
+    .descript{
+        text-align: center;
+    }
+
+
+    .descript-div{
+        max-width: 444px !important;
+    }
+
+    span.red-ui-typedInput-type-label {
+    /* background: chartreuse; */
+    /* display: block; */
+    width: 250px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    }
+
+    .btn-aln{
+        display: flex !important;
+        flex-direction: row-reverse !important;
+        /* padding-left: 30px; */
+        align-content: center;
+        align-items: flex-end;
+    }
+	
 
 </style>
 
 <script type="text/html" data-template-name="get_command_message">
 	
-	<div class="form-row columm">
+	<div class="form-row columm descript-div">
 		<strong class="descript">
 			Receives a message from a “send receive” and extracts desired information according to a reference message, and passes the rest of the message on to compare support.
 	</strong>
 	</div>
 
-	<div class="form-row" style="display:flex; justify-content: space-between;">
+	<div style=" position: relative; display:flex;">
+        <div class="form-row columm-70">
+            <label style="width: 50% !important;" for="node-input-name" ><i class="fa fa-tag"></i> Identification Note</label>
+            <input type="text" id="node-input-name" placeholder="Name" style="width: 100%">
+        </div>
+        <div class="form-row columm-30" style="align-items: flex-end !important;">
+            <label style="width: max-content !important; padding-right: 24px;"><i class="fa fa-list-ul"></i> Item</label>
+            <div class="form-row btn-aln" >
+                <a id="addCompare" class="red-ui-button" ><i class="fa fa-plus"></i></a>
+                <a id="remCompare" class="red-ui-button" style="margin-right: 5px;" ><i class="fa fa-minus"></i></a>
+            </div>
+        </div>
+    </div>
+
+	<!-- <div class="form-row" style="display:flex; justify-content: space-between;">
 		<button class="btn-uni btn-add"  id="addCompare" type="button"><i class="fa fa-plus" style="margin-right: 5px; font-size: 15px;"></i>Compare</button>
 		<button class="btn-uni btn-remove"  id="remCompare" type="button"><i class="fa fa-trash" style="margin-right: 10px; font-size: 15px;"></i>Compare</button>
-    </div>
+    </div> -->
+
+	<!-- <div class="hr-div-get-command">
+		<hr>
+		<span class="optional">Message 0</span>
+		<hr>
+	</div> -->
 
 	<div class="form-row columm">
 		<label for="node-input-command_ref" style="width: max-content; !important"><i class="fa fa-code"></i> Command_ref:</label>
 		<input type="text" id="node-input-command_ref">
 	</div>
 	<div class="form-row columm">
-		<label style="width: auto" for="node-input-compare_select"><i class="fa fa-list"></i> Comparison Type:</label>
+		<div style="display: flex; flex-direction: row; align-items: center;">
+			<label style="width: 37% !important;" for="node-input-compare_select"><i class="fa fa-list"></i> Comparison Type - 0:</label>
+			<hr class="hr-full-command">
+		</div>
 		<select id="node-input-compare_select"  >
 			<option value="equalTo">Equal to</option>
 			<option value="interval">Interval</option>
@@ -245,7 +326,7 @@
 			</div>
 			<div class="  node-input-max-value" style="display: none;">
 				<div class="columm">
-				<label for="node-input-maxValue" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+				<label for="node-input-maxValue" style="width: max-content !important"><i class="fa fa-plus-circle"></i> Maximum Value: </label>
 				<input type="text" id="node-input-maxValue" style="width:70px !important ">
 				</div>
 			</div>
@@ -257,8 +338,8 @@
 		<div class="form-row columm">
 		
 			<div style="display: flex; flex-direction: row; align-items: center;">
-				<label style="width: 35% !important;" for="node-input-compare_select1">Comparison Type - 1:</label>
-				<hr class="hr-full">
+				<label style="width: 37% !important;" for="node-input-compare_select1"><i class="fa fa-list"></i> Comparison Type - 1:</label>
+				<hr class="hr-full-command">
 			</div>
 			
 			<select id="node-input-compare_select1"  >
@@ -271,12 +352,12 @@
 		<div class="form-row columm" style="display: flex;">
 			<div class="node-input-equal-to1">
 				<div class="columm">
-					<label for="node-input-equalTo1" style="widthfa fa-exchangecontent; !important"><i class="icon-tag"></i> Equal To: </label>
+					<label for="node-input-equalTo1" style="widthfa fa-exchangecontent; !important"><i class="fa fa-exchange"></i> Equal To: </label>
 					<input type="text" id="node-input-equalTo1" style=" width:70px !important ">
 				</div>
 			</div>
 			<div class=box>
-				<div class="node-input-min-value1" style="display: none; width: min-content; float: left; margin-right: 40px;"">
+				<div class="node-input-min-value1" style="display: none; width: min-content; float: left; margin-right: 40px;">
 					<div class="columm">
 						<label for="node-input-minValue1" style="widthfa fa-minus-circlecontent !important;"><i class="fa fa-minus-circle"></i> Minimum Value: </label>
 						<input type="number" id="node-input-minValue1" style=" width:70px !important ">
@@ -284,7 +365,7 @@
 				</div>
 				<div class="node-input-max-value1" style="display: none;">
 					<div class="columm">
-						<label for="node-input-maxValue1" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+						<label for="node-input-maxValue1" style="width: max-content !important"><i class="fa fa-plus-circle"></i> Maximum Value: </label>
 						<input type="number" id="node-input-maxValue1" style=" width:70px !important ">
 					</div>
 				</div>
@@ -297,8 +378,8 @@
 		<div class="form-row columm">
 			
 			<div style="display: flex; flex-direction: row; align-items: center;">
-				<label style="width: 35% !important;" for="node-input-compare_select2">Comparison Type - 2:</label>
-				<hr class="hr-full">
+				<label style="width: 37% !important;" for="node-input-compare_select2"><i class="fa fa-list"></i> Comparison Type - 2:</label>
+				<hr class="hr-full-command">
 			</div>
 			<select id="node-input-compare_select2"  >
 				<option value="equalTo">Equal to</option>
@@ -323,7 +404,7 @@
 				</div>
 				<div class="node-input-max-value2" style="display: none;">
 					<div class="columm">
-						<label for="node-input-maxValue2" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+						<label for="node-input-maxValue2" style="width: max-content !important"><i class="fa fa-plus-circle"></i> Maximum Value: </label>
 						<input type="number" id="node-input-maxValue2" style=" width:70px !important ">
 					</div>
 				</div>
@@ -336,8 +417,8 @@
 		<div class="form-row columm">
 			
 			<div style="display: flex; flex-direction: row; align-items: center;">
-				<label style="width: 35% !important;" for="node-input-compare_select3">Comparison Type - 3:</label>
-				<hr class="hr-full">
+				<label style="width: 37% !important;" for="node-input-compare_select3"><i class="fa fa-list"></i> Comparison Type - 3:</label>
+				<hr class="hr-full-command">
 			</div>
 			<select id="node-input-compare_select3"  >
 				<option value="equalTo">Equal to</option>
@@ -362,7 +443,7 @@
 				</div>
 				<div class="node-input-max-value3" style="display: none;">
 					<div class="columm">
-						<label for="node-input-maxValue3" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+						<label for="node-input-maxValue3" style="width: max-content !important"><i class="fa fa-plus-circle"></i> Maximum Value: </label>
 						<input type="number" id="node-input-maxValue3" style=" width:70px !important ">
 					</div>
 				</div>
@@ -375,8 +456,8 @@
 		<div class="form-row columm">
 			
 			<div style="display: flex; flex-direction: row; align-items: center;">
-				<label style="width: 35% !important;" for="node-input-compare_select4">Comparison Type - 4:</label>
-				<hr class="hr-full">
+				<label style="width: 37% !important;" for="node-input-compare_select4"><i class="fa fa-list"></i> Comparison Type - 4:</label>
+				<hr class="hr-full-command">
 			</div>
 			<select id="node-input-compare_select4"  >
 				<option value="equalTo">Equal to</option>
@@ -401,7 +482,7 @@
 				</div>
 				<div class="node-input-max-value4" style="display: none;">
 					<div class="columm">
-						<label for="node-input-maxValue4" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+						<label for="node-input-maxValue4" style="width: max-content !important"><i class="fa fa-plus-circle"></i> Maximum Value: </label>
 						<input type="number" id="node-input-maxValue4" style=" width:70px !important ">
 					</div>
 				</div>
@@ -414,8 +495,8 @@
 		<div class="form-row columm">
 			
 			<div style="display: flex; flex-direction: row; align-items: center;">
-				<label style="width: 35% !important;" for="node-input-compare_select5">Comparison Type - 5:</label>
-				<hr class="hr-full">
+				<label style="width: 37% !important;" for="node-input-compare_select5"><i class="fa fa-list"></i> Comparison Type - 5:</label>
+				<hr class="hr-full-command">
 			</div>
 			<select id="node-input-compare_select5"  >
 				<option value="equalTo">Equal to</option>
@@ -440,7 +521,7 @@
 				</div>
 				<div class="node-input-max-value5" style="display: none;">
 					<div class="columm">
-						<label for="node-input-maxValue5" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+						<label for="node-input-maxValue5" style="width: max-content !important"><i class="fa fa-plus-circle"></i> Maximum Value: </label>
 						<input type="number" id="node-input-maxValue5" style=" width:70px !important ">
 					</div>
 				</div>
@@ -452,8 +533,8 @@
 		<div class="form-row columm">
 			
 			<div style="display: flex; flex-direction: row; align-items: center;">
-				<label style="width: 35% !important;" for="node-input-compare_select6">Comparison Type - 6:</label>
-				<hr class="hr-full">
+				<label style="width: 37% !important;" for="node-input-compare_select6"><i class="fa fa-list"></i> Comparison Type - 6:</label>
+				<hr class="hr-full-command">
 			</div>
 			<select id="node-input-compare_select6"  >
 				<option value="equalTo">Equal to</option>
@@ -478,7 +559,7 @@
 				</div>
 				<div class="node-input-max-value6" style="display: none;">
 					<div class="columm">
-						<label for="node-input-maxValue6" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+						<label for="node-input-maxValue6" style="width: max-content !important"><i class="fa fa-plus-circle"></i> Maximum Value: </label>
 						<input type="number" id="node-input-maxValue6" style=" width:70px !important ">
 					</div>
 				</div>
@@ -490,8 +571,8 @@
 		<div class="form-row columm">
 		
 			<div style="display: flex; flex-direction: row; align-items: center;">
-				<label style="width: 35% !important;" for="node-input-compare_select7">Comparison Type - 7:</label>
-				<hr class="hr-full">
+				<label style="width: 37% !important;" for="node-input-compare_select7"><i class="fa fa-list"></i> Comparison Type - 7:</label>
+				<hr class="hr-full-command">
 			</div>
 			<select id="node-input-compare_select7"  >
 				<option value="equalTo">Equal to</option>
@@ -516,7 +597,7 @@
 				</div>
 				<div class="node-input-max-value7" style="display: none;">
 					<div class="columm">
-						<label for="node-input-maxValue7" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+						<label for="node-input-maxValue7" style="width: max-content !important"><i class="fa fa-plus-circle"></i> Maximum Value: </label>
 						<input type="number" id="node-input-maxValue7" style=" width:70px !important ">
 					</div>
 				</div>
@@ -528,8 +609,8 @@
 		<div class="form-row columm">
 			
 			<div style="display: flex; flex-direction: row; align-items: center;">
-				<label style="width: 35% !important;" for="node-input-compare_select8">Comparison Type - 8:</label>
-				<hr class="hr-full">
+				<label style="width: 37% !important;" for="node-input-compare_select8"><i class="fa fa-list"></i> Comparison Type - 8:</label>
+				<hr class="hr-full-command">
 			</div>
 			<select id="node-input-compare_select8"  >
 				<option value="equalTo">Equal to</option>
@@ -554,7 +635,7 @@
 				</div>
 				<div class="node-input-max-value8" style="display: none;">
 					<div class="columm">
-						<label for="node-input-maxValue8" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+						<label for="node-input-maxValue8" style="width: max-content !important"><i class="fa fa-plus-circle"></i> Maximum Value: </label>
 						<input type="number" id="node-input-maxValue8" style=" width:70px !important ">
 					</div>
 				</div>
@@ -566,8 +647,8 @@
 		<div class="form-row columm">
 			
 			<div style="display: flex; flex-direction: row; align-items: center;">
-				<label style="width: 35% !important;" for="node-input-compare_select9">Comparison Type - 9:</label>
-				<hr class="hr-full">
+				<label style="width: 37% !important;" for="node-input-compare_select9"><i class="fa fa-list"></i> Comparison Type - 9:</label>
+				<hr class="hr-full-command">
 			</div>
 			<select id="node-input-compare_select9"  >
 				<option value="equalTo">Equal to</option>
@@ -592,7 +673,7 @@
 				</div>
 				<div class="node-input-max-value9" style="display: none;">
 					<div class="columm">
-						<label for="node-input-maxValue9" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+						<label for="node-input-maxValue9" style="width: max-content !important"><i class="fa fa-plus-circle"></i> Maximum Value: </label>
 						<input type="number" id="node-input-maxValue9" style=" width:70px !important ">
 					</div>
 				</div>
@@ -604,8 +685,8 @@
 		<div class="form-row columm">
 			
 			<div style="display: flex; flex-direction: row; align-items: center;">
-				<label style="width: 35% !important;" for="node-input-compare_select10">Comparison Type - 10:</label>
-				<hr class="hr-full">
+				<label style="width: 37% !important;" for="node-input-compare_select10"><i class="fa fa-list"></i> Comparison Type - 10:</label>
+				<hr class="hr-full-command">
 			</div>
 			<select id="node-input-compare_select10"  >
 				<option value="equalTo">Equal to</option>
@@ -630,7 +711,7 @@
 				</div>
 				<div class="node-input-max-value10" style="display: none;">
 					<div class="columm">
-						<label for="node-input-maxValue10" style="width: max-content !important"><i class="icon-tag"></i>Maximum Value: </label>
+						<label for="node-input-maxValue10" style="width: max-content !important"><i class="fa fa-plus-circle"></i> Maximum Value: </label>
 						<input type="number" id="node-input-maxValue10" style=" width:70px !important ">
 					</div>
 				</div>
@@ -639,16 +720,16 @@
 		</div>
 	</div>
 
-	<div class="hr-div-get-command">
-		<hr>
-		<span class="optional">Optional</span>
-		<hr>
-	</div>
-	<div class="form-row columm">
-		<label style="width: 50% !important;" for="node-input-name" ><i class="fa fa-tag"></i> Component Nickname</label>
-		<input type="text" id="node-input-name" placeholder="Name">
-	</div>
-	</div>
+		<!-- <div class="hr-div-get-command">
+			<hr>
+			<span class="optional">Optional</span>
+			<hr>
+		</div>
+		<div class="form-row columm">
+			<label style="width: 50% !important;" for="node-input-name" ><i class="fa fa-tag"></i> Component Nickname</label>
+			<input type="text" id="node-input-name" placeholder="Name">
+		</div> -->
+</div>
 </script>
 
 <script type="text/html" data-help-name="get_command_message">
